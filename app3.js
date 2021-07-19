@@ -17,7 +17,9 @@ loader = document.getElementById('loading');
 guessInput.addEventListener("keyup", function (e) {
   if (e.keyCode === 13) {
     e.preventDefault();
+    //guessInput.removeEventListener('keyup');
     guessBtn.click();
+
   }
 });
 
@@ -27,26 +29,34 @@ game.addEventListener('mousedown', function (e) {
     window.location.reload();
   }
 });
-
+let count = 0;
 // Listen for guess
 guessBtn.addEventListener('click', function () {
   let guess = parseInt(guessInput.value);
-
+  count += 1;
 
   //Validate
   if (isNaN(guess) || guess < min || guess > max) {
     setMessage(`Please enter a number between ${min} and ${max}`, 'red');
+    count -= 1;
   } else if (guessInput.value.length < 4) {
     setMessage(`Please enter a 4 digit number`, 'red');
+    count -= 1;
   } else if (checkForUnique(guessInput.value) === false) {
     setMessage(`Please enter unique digits!`, 'red')
+    count -= 1;
+  } else if (count > 1) {
+    setMessage(`Please wait computing...`, 'green');
   } else {
 
     setMessage('Computing', 'green');
     loader.style.display = 'block';
+
     setTimeout(function () {
       loader.style.display = 'none';
+
       playSingle(guessInput.value);
+
       gameOver(true, `Game over, I win!`)
     }, 2000);
 
@@ -69,6 +79,7 @@ function gameOver(won, msg) {
   // Play again
   guessBtn.value = 'Play Again';
   guessBtn.className += 'play-again';
+
 }
 
 
