@@ -14,6 +14,12 @@ const game = document.querySelector('#game'),
   collection = document.querySelector('.collection');
 loader = document.getElementById('loading');
 
+guessInput.addEventListener("keyup", function (e) {
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    guessBtn.click();
+  }
+});
 
 // Play again event listener
 game.addEventListener('mousedown', function (e) {
