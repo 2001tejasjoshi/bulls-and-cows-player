@@ -4,7 +4,7 @@
 let min = 0,
   max = 9999,
   winningNum = getRandomNum(),
-  guessesLeft = 10;
+  guessesLeft = 20;
 console.log(winningNum);
 // UI Elements
 const game = document.querySelector('#game'),
